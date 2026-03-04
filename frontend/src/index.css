@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply antialiased;
+}
+
+/* React Flow applies default styling to the built-in "output" node type.
+   We override it here so our custom OutputNode component renders cleanly. */
+.react-flow__node-output {
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
