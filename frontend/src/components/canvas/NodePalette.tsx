@@ -23,7 +23,7 @@ function PaletteItem({ type, icon, label, description }: PaletteItemProps) {
     <div
       draggable
       onDragStart={onDragStart}
-      className="cursor-grab rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 p-2 text-xs shadow-sm hover:border-slate-300 dark:hover:border-slate-600 transition-colors"
+      className="cursor-grab rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 p-2 text-xs shadow-sm hover:border-slate-300 dark:hover:border-zinc-600 transition-colors"
     >
       <div className="mb-1 flex items-center gap-2">
         <span className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-100 dark:bg-zinc-900">

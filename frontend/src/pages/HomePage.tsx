@@ -36,7 +36,7 @@ export function HomePage() {
         <button
           type="button"
           onClick={() => navigate("/editor")}
-          className="inline-flex items-center gap-2 rounded-md bg-slate-900 dark:bg-zinc-100 px-4 py-2 text-sm font-medium text-white dark:text-zinc-900 shadow-sm hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors"
+          className="inline-flex items-center gap-2 rounded-md bg-slate-900 dark:bg-zinc-100 px-4 py-2 text-sm font-medium text-white dark:text-zinc-900 shadow-sm hover:bg-slate-800 dark:hover:bg-zinc-200 transition-colors"
         >
           <Plus className="h-4 w-4" />
           New Workflow
@@ -54,7 +54,7 @@ export function HomePage() {
           <button
             type="button"
             onClick={() => navigate("/editor")}
-            className="inline-flex items-center gap-2 rounded-md bg-slate-900 dark:bg-zinc-100 px-4 py-2 text-sm font-medium text-white dark:text-zinc-900 hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors"
+            className="inline-flex items-center gap-2 rounded-md bg-slate-900 dark:bg-zinc-100 px-4 py-2 text-sm font-medium text-white dark:text-zinc-900 hover:bg-slate-800 dark:hover:bg-zinc-200 transition-colors"
           >
             <Plus className="h-4 w-4" />
             New Workflow
@@ -65,7 +65,7 @@ export function HomePage() {
           {workflows.map((wf) => (
             <article
               key={wf.id}
-              className="group flex flex-col justify-between rounded-lg border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-colors"
+              className="group flex flex-col justify-between rounded-lg border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 shadow-sm hover:border-slate-300 dark:hover:border-zinc-700 transition-colors"
             >
               <div>
                 <h2 className="mb-1 text-sm font-semibold text-slate-900 dark:text-zinc-100">

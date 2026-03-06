@@ -45,7 +45,7 @@ export function KeyValueEditor({ value, onChange }: KeyValueEditorProps) {
       <button
         type="button"
         onClick={addRow}
-        className="mt-1 text-[11px] font-medium text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-slate-200 transition-colors"
+        className="mt-1 text-[11px] font-medium text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200 transition-colors"
       >
         + Add header
       </button>

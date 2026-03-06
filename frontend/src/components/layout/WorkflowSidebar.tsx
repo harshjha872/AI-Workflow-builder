@@ -23,7 +23,7 @@ export function WorkflowSidebar() {
         <button
           type="button"
           onClick={() => navigate("/editor")}
-          className="inline-flex items-center gap-1 rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-2 py-1 text-xs font-medium text-slate-700 dark:text-zinc-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+          className="inline-flex items-center gap-1 rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-2 py-1 text-xs font-medium text-slate-700 dark:text-zinc-200 hover:bg-slate-50 dark:hover:bg-zinc-700 transition-colors"
         >
           <Plus className="h-3 w-3" />
           New
@@ -43,7 +43,7 @@ export function WorkflowSidebar() {
                 <button
                   type="button"
                   onClick={() => navigate(`/editor/${wf.id}`)}
-                  className="w-full rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2 text-left text-xs hover:border-slate-300 dark:hover:border-slate-600 transition-colors"
+                  className="w-full rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2 text-left text-xs hover:border-slate-300 dark:hover:border-zinc-600 transition-colors"
                 >
                   <div className="font-medium text-slate-800 dark:text-zinc-200">
                     {wf.name}
