@@ -28,14 +28,14 @@ export function HttpRequestConfig({ config, onChange }: Props) {
 
   return (
     <div className="space-y-3 p-4 text-xs">
-      <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+      <h2 className="text-sm font-semibold text-slate-800 dark:text-zinc-200">
         HTTP Request
       </h2>
       <label className="block space-y-1">
-        <span className="text-slate-600 dark:text-slate-400">Method</span>
+        <span className="text-slate-600 dark:text-zinc-400">Method</span>
         <select
           {...register("method")}
-          className="w-full rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
+          className="w-full rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-900 dark:text-zinc-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
         >
           <option value="GET">GET</option>
           <option value="POST">POST</option>
@@ -45,32 +45,32 @@ export function HttpRequestConfig({ config, onChange }: Props) {
         </select>
       </label>
       <label className="block space-y-1">
-        <span className="text-slate-600 dark:text-slate-400">URL</span>
+        <span className="text-slate-600 dark:text-zinc-400">URL</span>
         <input
           {...register("url")}
-          className="w-full rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
+          className="w-full rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-900 dark:text-zinc-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
         />
       </label>
       <div className="space-y-1">
-        <span className="text-slate-600 dark:text-slate-400">Headers</span>
+        <span className="text-slate-600 dark:text-zinc-400">Headers</span>
         <KeyValueEditor
           value={config.headers}
           onChange={(headers) => setValue("headers", headers)}
         />
       </div>
       <label className="block space-y-1">
-        <span className="text-slate-600 dark:text-slate-400">Body</span>
+        <span className="text-slate-600 dark:text-zinc-400">Body</span>
         <textarea
           {...register("body")}
           rows={3}
-          className="w-full rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
+          className="w-full rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-900 dark:text-zinc-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
         />
       </label>
       <label className="block space-y-1">
-        <span className="text-slate-600 dark:text-slate-400">Output Key</span>
+        <span className="text-slate-600 dark:text-zinc-400">Output Key</span>
         <input
           {...register("outputKey")}
-          className="w-full rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
+          className="w-full rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-900 dark:text-zinc-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
         />
       </label>
     </div>

@@ -9,7 +9,7 @@ export function LLMCallNode(props: any) {
       <div className="font-medium text-indigo-700 dark:text-indigo-400">
         {config.provider} · {config.model}
       </div>
-      <div className="line-clamp-2 text-[11px] text-slate-600 dark:text-slate-400">
+      <div className="line-clamp-2 text-[11px] text-slate-600 dark:text-zinc-400">
         {config.userPrompt}
       </div>
     </BaseNode>

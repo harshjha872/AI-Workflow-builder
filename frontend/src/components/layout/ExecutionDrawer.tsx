@@ -7,7 +7,7 @@ export function ExecutionDrawer() {
   if (!isDrawerOpen) return null;
 
   return (
-    <div className="h-64 border-t border-slate-200 dark:border-slate-800 bg-slate-950 px-4 py-3 text-slate-100 transition-colors">
+    <div className="h-64 border-t border-slate-200 dark:border-zinc-800 bg-slate-950 px-4 py-3 text-slate-100 transition-colors">
       <div className="mb-3 flex items-center justify-between">
         <StatusBadge status={status} />
       </div>

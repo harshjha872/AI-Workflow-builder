@@ -9,7 +9,7 @@ export function TransformNode(props: any) {
       <div className="font-medium text-purple-700 dark:text-purple-400">
         JS Transform
       </div>
-      <div className="line-clamp-2 text-[11px] text-slate-600 dark:text-slate-400">
+      <div className="line-clamp-2 text-[11px] text-slate-600 dark:text-zinc-400">
         {config.code}
       </div>
     </BaseNode>

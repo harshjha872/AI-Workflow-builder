@@ -26,7 +26,7 @@ export function ConfigPanel() {
   if (!Form) return null;
 
   return (
-    <aside className="w-80 border-l border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 transition-colors">
+    <aside className="w-80 border-l border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 transition-colors">
       <Form
         config={node.data.config}
         onChange={(cfg: unknown) =>

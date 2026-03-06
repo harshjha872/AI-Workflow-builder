@@ -24,33 +24,33 @@ export function ConditionConfig({ config, onChange }: Props) {
 
   return (
     <div className="space-y-3 p-4 text-xs">
-      <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+      <h2 className="text-sm font-semibold text-slate-800 dark:text-zinc-200">
         Condition
       </h2>
       <label className="block space-y-1">
-        <span className="text-slate-600 dark:text-slate-400">Expression</span>
+        <span className="text-slate-600 dark:text-zinc-400">Expression</span>
         <textarea
           {...register("expression")}
           rows={3}
-          className="w-full rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-2 py-1 font-mono text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
+          className="w-full rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-900 dark:text-zinc-100 px-2 py-1 font-mono text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
         />
       </label>
       <label className="block space-y-1">
-        <span className="text-slate-600 dark:text-slate-400">
+        <span className="text-slate-600 dark:text-zinc-400">
           True Path Node ID
         </span>
         <input
           {...register("truePath")}
-          className="w-full rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
+          className="w-full rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-900 dark:text-zinc-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
         />
       </label>
       <label className="block space-y-1">
-        <span className="text-slate-600 dark:text-slate-400">
+        <span className="text-slate-600 dark:text-zinc-400">
           False Path Node ID
         </span>
         <input
           {...register("falsePath")}
-          className="w-full rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
+          className="w-full rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-900 dark:text-zinc-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
         />
       </label>
     </div>

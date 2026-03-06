@@ -27,54 +27,54 @@ export function LLMCallConfig({ config, onChange }: Props) {
 
   return (
     <div className="space-y-3 p-4 text-xs">
-      <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+      <h2 className="text-sm font-semibold text-slate-800 dark:text-zinc-200">
         LLM Call
       </h2>
       <label className="block space-y-1">
-        <span className="text-slate-600 dark:text-slate-400">Provider</span>
+        <span className="text-slate-600 dark:text-zinc-400">Provider</span>
         <select
           {...register("provider")}
-          className="w-full rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
+          className="w-full rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-900 dark:text-zinc-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
         >
           <option value="openai">OpenAI</option>
           <option value="anthropic">Anthropic</option>
         </select>
       </label>
       <label className="block space-y-1">
-        <span className="text-slate-600 dark:text-slate-400">Model</span>
+        <span className="text-slate-600 dark:text-zinc-400">Model</span>
         <input
           {...register("model")}
-          className="w-full rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
+          className="w-full rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-900 dark:text-zinc-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
         />
       </label>
       <label className="block space-y-1">
-        <span className="text-slate-600 dark:text-slate-400">
+        <span className="text-slate-600 dark:text-zinc-400">
           System Prompt
         </span>
         <textarea
           {...register("systemPrompt")}
           rows={3}
-          className="w-full rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
+          className="w-full rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-900 dark:text-zinc-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
         />
       </label>
       <label className="block space-y-1">
-        <span className="text-slate-600 dark:text-slate-400">
+        <span className="text-slate-600 dark:text-zinc-400">
           User Prompt
-          <span className="ml-1 text-[10px] text-slate-400 dark:text-slate-500">
+          <span className="ml-1 text-[10px] text-slate-400 dark:text-zinc-500">
             supports &#123;&#123;context.key&#125;&#125;
           </span>
         </span>
         <textarea
           {...register("userPrompt")}
           rows={4}
-          className="w-full rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
+          className="w-full rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-900 dark:text-zinc-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
         />
       </label>
       <label className="block space-y-1">
-        <span className="text-slate-600 dark:text-slate-400">Output Key</span>
+        <span className="text-slate-600 dark:text-zinc-400">Output Key</span>
         <input
           {...register("outputKey")}
-          className="w-full rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
+          className="w-full rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-900 dark:text-zinc-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
         />
       </label>
     </div>

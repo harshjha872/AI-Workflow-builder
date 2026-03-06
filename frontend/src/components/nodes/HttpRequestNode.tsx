@@ -9,7 +9,7 @@ export function HttpRequestNode(props: any) {
       <div className="font-medium text-sky-700 dark:text-sky-400">
         {config.method}
       </div>
-      <div className="line-clamp-2 text-[11px] text-slate-600 dark:text-slate-400">
+      <div className="line-clamp-2 text-[11px] text-slate-600 dark:text-zinc-400">
         {config.url}
       </div>
     </BaseNode>

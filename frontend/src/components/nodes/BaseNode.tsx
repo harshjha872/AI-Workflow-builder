@@ -23,7 +23,7 @@ export function BaseNode({
 
   return (
     <div
-      className={`w-60 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-800/90 shadow-[0_18px_45px_rgba(15,23,42,0.06)] dark:shadow-[0_18px_45px_rgba(0,0,0,0.2)] transition-colors ${statusClass}`}
+      className={`w-60 rounded-2xl border border-slate-200 dark:border-zinc-700 bg-white/90 dark:bg-zinc-800/90 shadow-[0_18px_45px_rgba(15,23,42,0.06)] dark:shadow-[0_18px_45px_rgba(0,0,0,0.2)] transition-colors ${statusClass}`}
     >
       {showTargetHandle && (
         <Handle
@@ -32,10 +32,10 @@ export function BaseNode({
           className="h-2 w-2 bg-slate-500"
         />
       )}
-      <div className="px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-200">
+      <div className="px-3 py-2 text-sm font-medium text-slate-700 dark:text-zinc-200">
         {data.label}
       </div>
-      <div className="px-3 pb-3 text-xs text-slate-600 dark:text-slate-400">
+      <div className="px-3 pb-3 text-xs text-slate-600 dark:text-zinc-400">
         {children}
       </div>
       {showSourceHandle && (
