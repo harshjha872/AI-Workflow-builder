@@ -1,11 +1,11 @@
-import { useAppDispatch, useAppSelector } from '../../store';
-import { updateNodeConfig } from '../../store/workflowSlice';
-import { TriggerConfig } from './TriggerConfig';
-import { LLMCallConfig } from './LLMCallConfig';
-import { HttpRequestConfig } from './HttpRequestConfig';
-import { ConditionConfig } from './ConditionConfig';
-import { TransformConfig } from './TransformConfig';
-import { OutputConfig } from './OutputConfig';
+import { useAppDispatch, useAppSelector } from "../../store";
+import { updateNodeConfig } from "../../store/workflowSlice";
+import { TriggerConfig } from "./TriggerConfig";
+import { LLMCallConfig } from "./LLMCallConfig";
+import { HttpRequestConfig } from "./HttpRequestConfig";
+import { ConditionConfig } from "./ConditionConfig";
+import { TransformConfig } from "./TransformConfig";
+import { OutputConfig } from "./OutputConfig";
 
 const CONFIG_FORMS: Record<string, React.ComponentType<any>> = {
   trigger: TriggerConfig,
@@ -13,7 +13,7 @@ const CONFIG_FORMS: Record<string, React.ComponentType<any>> = {
   httpRequest: HttpRequestConfig,
   condition: ConditionConfig,
   transform: TransformConfig,
-  output: OutputConfig
+  output: OutputConfig,
 };
 
 export function ConfigPanel() {
@@ -22,16 +22,17 @@ export function ConfigPanel() {
   const node = nodes.find((n) => n.id === selectedNodeId);
   if (!node) return null;
 
-  const Form = CONFIG_FORMS[node.type ?? ''] ?? null;
+  const Form = CONFIG_FORMS[node.type ?? ""] ?? null;
   if (!Form) return null;
 
   return (
-    <aside className="w-80 border-l bg-white">
+    <aside className="w-80 border-l border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 transition-colors">
       <Form
         config={node.data.config}
-        onChange={(cfg: unknown) => dispatch(updateNodeConfig({ nodeId: node.id, config: cfg }))}
+        onChange={(cfg: unknown) =>
+          dispatch(updateNodeConfig({ nodeId: node.id, config: cfg }))
+        }
       />
     </aside>
   );
 }
-

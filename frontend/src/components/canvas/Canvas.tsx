@@ -8,20 +8,24 @@ import {
   ReactFlowProvider,
   addEdge,
   useEdgesState,
-  useNodesState
-} from '@xyflow/react';
-import '@xyflow/react/dist/style.css';
-import { useEffect } from 'react';
-import { useDrop } from '../../hooks/useDrop';
-import { useAppDispatch, useAppSelector } from '../../store';
-import { setEdges, setNodes, setSelectedNodeId } from '../../store/workflowSlice';
-import { BaseNode } from '../nodes/BaseNode';
-import { TriggerNode } from '../nodes/TriggerNode';
-import { LLMCallNode } from '../nodes/LLMCallNode';
-import { HttpRequestNode } from '../nodes/HttpRequestNode';
-import { ConditionNode } from '../nodes/ConditionNode';
-import { TransformNode } from '../nodes/TransformNode';
-import { OutputNode } from '../nodes/OutputNode';
+  useNodesState,
+} from "@xyflow/react";
+import "@xyflow/react/dist/style.css";
+import { useEffect } from "react";
+import { useDrop } from "../../hooks/useDrop";
+import { useAppDispatch, useAppSelector } from "../../store";
+import {
+  setEdges,
+  setNodes,
+  setSelectedNodeId,
+} from "../../store/workflowSlice";
+import { BaseNode } from "../nodes/BaseNode";
+import { TriggerNode } from "../nodes/TriggerNode";
+import { LLMCallNode } from "../nodes/LLMCallNode";
+import { HttpRequestNode } from "../nodes/HttpRequestNode";
+import { ConditionNode } from "../nodes/ConditionNode";
+import { TransformNode } from "../nodes/TransformNode";
+import { OutputNode } from "../nodes/OutputNode";
 
 const nodeTypes = {
   trigger: TriggerNode,
@@ -30,14 +34,18 @@ const nodeTypes = {
   condition: ConditionNode,
   transform: TransformNode,
   output: OutputNode,
-  base: BaseNode
+  base: BaseNode,
 };
 
 function InnerCanvas() {
   const dispatch = useAppDispatch();
   const workflow = useAppSelector((s) => s.workflow);
-  const [nodes, setLocalNodes, onNodesChange] = useNodesState(workflow.nodes as Node[]);
-  const [edges, setLocalEdges, onEdgesChange] = useEdgesState(workflow.edges as Edge[]);
+  const [nodes, setLocalNodes, onNodesChange] = useNodesState(
+    workflow.nodes as Node[],
+  );
+  const [edges, setLocalEdges, onEdgesChange] = useEdgesState(
+    workflow.edges as Edge[],
+  );
   const { onDragOver, onDrop } = useDrop();
 
   useEffect(() => {
@@ -64,6 +72,7 @@ function InnerCanvas() {
   return (
     <div className="flex-1">
       <ReactFlow
+        colorMode="dark"
         nodes={nodes}
         edges={edges}
         onNodesChange={handleNodesChange}
@@ -77,15 +86,15 @@ function InnerCanvas() {
         defaultEdgeOptions={{
           animated: true,
           style: {
-            stroke: '#d4d4d8',
+            stroke: "#d4d4d8",
             strokeWidth: 2,
-            strokeDasharray: '4 4'
-          }
+            strokeDasharray: "4 4",
+          },
         }}
         connectionLineStyle={{
-          stroke: '#d4d4d8',
+          stroke: "#d4d4d8",
           strokeWidth: 2,
-          strokeDasharray: '2 6'
+          strokeDasharray: "2 6",
         }}
       >
         <Background />
@@ -103,4 +112,3 @@ export function Canvas() {
     </ReactFlowProvider>
   );
 }
-

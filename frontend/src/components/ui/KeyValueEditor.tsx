@@ -21,7 +21,7 @@ export function KeyValueEditor({ value, onChange }: KeyValueEditorProps) {
   };
 
   const addRow = () => {
-    onChange({ ...value, '': '' });
+    onChange({ ...value, "": "" });
   };
 
   return (
@@ -29,13 +29,13 @@ export function KeyValueEditor({ value, onChange }: KeyValueEditorProps) {
       {entries.map(([k, v], index) => (
         <div key={index} className="flex gap-1">
           <input
-            className="w-1/2 rounded-md border px-2 py-1 text-xs"
+            className="w-1/2 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
             placeholder="Header"
             defaultValue={k}
             onChange={(e) => update(index, e.target.value, v)}
           />
           <input
-            className="w-1/2 rounded-md border px-2 py-1 text-xs"
+            className="w-1/2 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
             placeholder="Value"
             defaultValue={v}
             onChange={(e) => update(index, k, e.target.value)}
@@ -45,11 +45,10 @@ export function KeyValueEditor({ value, onChange }: KeyValueEditorProps) {
       <button
         type="button"
         onClick={addRow}
-        className="mt-1 text-[11px] font-medium text-slate-600"
+        className="mt-1 text-[11px] font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-colors"
       >
         + Add header
       </button>
     </div>
   );
 }
-

@@ -1,4 +1,4 @@
-import { BaseNode } from './BaseNode';
+import { BaseNode } from "./BaseNode";
 
 export function TransformNode(props: any) {
   const { data } = props;
@@ -6,9 +6,12 @@ export function TransformNode(props: any) {
 
   return (
     <BaseNode {...props}>
-      <div className="font-medium text-purple-700">JS Transform</div>
-      <div className="line-clamp-2 text-[11px] text-slate-600">{config.code}</div>
+      <div className="font-medium text-purple-700 dark:text-purple-400">
+        JS Transform
+      </div>
+      <div className="line-clamp-2 text-[11px] text-slate-600 dark:text-slate-400">
+        {config.code}
+      </div>
     </BaseNode>
   );
 }
-
