@@ -87,7 +87,6 @@ function InnerCanvas() {
           strokeWidth: 2,
           strokeDasharray: '2 6'
         }}
-        fitView
       >
         <Background />
         <Controls />

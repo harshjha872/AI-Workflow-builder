@@ -28,6 +28,18 @@ const createExecutionSchema = z.object({
 });
 
 router.post('/', validate(createExecutionSchema), asyncHandler(async (req, res) => {
+  res.setHeader("Content-Type", "text/event-stream");
+  res.setHeader("Cache-Control", "no-cache");
+  res.setHeader("Connection", "keep-alive");
+
+  // Send events over time
+  const interval = setInterval(() => {
+    res.write(`data: ${JSON.stringify({ chunk: "..." })}\n\n`);
+  }, 500);
+
+  // Clean up when client disconnects
+  req.on("close", () => clearInterval(interval));
+
   const { workflowId, input } = req.body;
 
   const workflow = getWorkflowById(workflowId);
@@ -39,12 +51,18 @@ router.post('/', validate(createExecutionSchema), asyncHandler(async (req, res) 
   const executionId = crypto.randomUUID();
   createExecution({ id: executionId, workflowId, input });
 
-  res.status(202).json({ executionId });
+  // Send execution id back to frontend
+  // res.status(202).json({ executionId });
 
+  sseManager.emitFromPost(executionId, 'executionId', { executionId }, res)
+  // res.write(`data: ${JSON.stringify({ executionId })}`);
+  
+  // Update DB Execution table
   const startedAt = new Date().toISOString();
   updateExecution(executionId, { status: 'RUNNING', startedAt });
 
-  executeWorkflow(executionId, workflow.graph, input)
+  //Execute workflow
+  executeWorkflow(executionId, workflow.graph, input, res)
     .then(({ output, logs }) => {
       updateExecution(executionId, {
         status: 'SUCCESS',

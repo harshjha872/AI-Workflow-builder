@@ -19,6 +19,7 @@ import {
   TransformConfig,
 } from "./nodes/transform.js";
 import { execute as executeOutput, OutputConfig } from "./nodes/output.js";
+import Response from 'express';
 
 export interface WorkflowGraph {
   nodes: GraphNode[];
@@ -68,6 +69,7 @@ export async function executeWorkflow(
   executionId: string,
   graph: WorkflowGraph,
   input: Record<string, unknown>,
+  response?: any,
   callbacks?: {
     onNodeStart?: (nodeId: string, nodeType: string, label: string) => void;
     onNodeSuccess?: (
@@ -107,11 +109,11 @@ export async function executeWorkflow(
     const startTime = Date.now();
 
     callbacks?.onNodeStart?.(nodeId, node.type, node.data.label);
-    sseManager.emit(executionId, "node_start", {
+    sseManager.emitFromPost(executionId, "node_start", {
       nodeId,
       nodeType: node.type,
       label: node.data.label,
-    });
+    }, response);
 
     try {
       const result = await executor(resolvedConfig, context);
@@ -135,11 +137,11 @@ export async function executeWorkflow(
       });
 
       callbacks?.onNodeSuccess?.(nodeId, result, durationMs);
-      sseManager.emit(executionId, "node_success", {
+      sseManager.emitFromPost(executionId, "node_success", {
         nodeId,
         output: result,
         durationMs,
-      });
+      }, response);
 
       logger.debug(
         { nodeId, nodeType: node.type, durationMs },
@@ -162,10 +164,10 @@ export async function executeWorkflow(
       });
 
       callbacks?.onNodeError?.(nodeId, errorMessage);
-      sseManager.emit(executionId, "node_error", {
+      sseManager.emitFromPost(executionId, "node_error", {
         nodeId,
         error: errorMessage,
-      });
+      }, response);
 
       logger.error(
         { nodeId, nodeType: node.type, err },
@@ -180,10 +182,10 @@ export async function executeWorkflow(
   const finalOutput = context.get("result") ?? context.snapshot();
 
   callbacks?.onComplete?.("SUCCESS", finalOutput);
-  sseManager.emit(executionId, "execution_complete", {
+  sseManager.emitFromPost(executionId, "execution_complete", {
     status: "SUCCESS",
     output: finalOutput,
-  });
+  }, response);
 
   return { output: finalOutput, logs };
 }
