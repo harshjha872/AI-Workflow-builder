@@ -54,7 +54,7 @@ router.post('/', validate(createExecutionSchema), asyncHandler(async (req, res) 
   // Send execution id back to frontend
   // res.status(202).json({ executionId });
 
-  sseManager.emitFromPost(executionId, 'executionId', { executionId }, res)
+  sseManager.emitFromPost(executionId, 'executionId', { executionId, workflow }, res)
   // res.write(`data: ${JSON.stringify({ executionId })}`);
   
   // Update DB Execution table
@@ -79,10 +79,10 @@ router.post('/', validate(createExecutionSchema), asyncHandler(async (req, res) 
         error: errorMessage,
         finishedAt: new Date().toISOString(),
       });
-      sseManager.emit(executionId, 'execution_error', {
+      sseManager.emitFromPost(executionId, 'execution_error', {
         status: 'ERROR',
         error: errorMessage,
-      });
+      }, res);
     })
     .finally(() => {
       sseManager.close(executionId);

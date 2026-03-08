@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../store";
 import { updateNodeConfig } from "../../store/workflowSlice";
-import { TriggerConfig } from "./TriggerConfig";
+import { TriggerConfig1 } from "./TriggerConfig";
 import { LLMCallConfig } from "./LLMCallConfig";
 import { HttpRequestConfig } from "./HttpRequestConfig";
 import { ConditionConfig } from "./ConditionConfig";
@@ -8,7 +8,7 @@ import { TransformConfig } from "./TransformConfig";
 import { OutputConfig } from "./OutputConfig";
 
 const CONFIG_FORMS: Record<string, React.ComponentType<any>> = {
-  trigger: TriggerConfig,
+  trigger: TriggerConfig1,
   llmCall: LLMCallConfig,
   httpRequest: HttpRequestConfig,
   condition: ConditionConfig,

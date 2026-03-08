@@ -61,7 +61,9 @@ export function EditorPage() {
     },
       body: JSON.stringify({
         workflowId: workflow.id,
-        input: {},
+        input: {
+          url: "https://api.open-meteo.com/v1/forecast?latitude=40.71&longitude=-74.01&current_weather=true"
+        },
       }),
     });
 

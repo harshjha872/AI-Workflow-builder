@@ -79,7 +79,12 @@ function InnerCanvas() {
         onEdgesChange={handleEdgesChange}
         onConnect={handleConnect}
         nodeTypes={nodeTypes}
-        onNodeClick={(_, node) => dispatch(setSelectedNodeId(node.id))}
+        onNodeClick={(_, node) => {
+          dispatch(setSelectedNodeId(null))
+          setTimeout(() => {
+            dispatch(setSelectedNodeId(node.id))
+          }, 100);
+        }}
         onPaneClick={() => dispatch(setSelectedNodeId(null))}
         onDragOver={onDragOver}
         onDrop={onDrop}

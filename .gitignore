@@ -6,3 +6,4 @@ backend/*.db
 frontend/node_modules
 backend/workflows.db-shm
 backend/workflows.db-wal
+frontend/dist/
