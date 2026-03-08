@@ -51,6 +51,22 @@ export function EditorPage() {
     dispatch(resetExecution());
     dispatch(openDrawer());
     if (!workflow.id) return;
+
+    // Extract dynamic inputs from the trigger node
+    const triggerNode = workflow.nodes.find((n: any) => n.type === "trigger");
+    const inputFields: Array<{ key: string; value: string }> =
+      (triggerNode?.data?.config as any)?.inputFields || [];
+
+    const executionInput = inputFields.reduce(
+      (acc: Record<string, string>, field) => {
+        if (field.key) {
+          acc[field.key] = field.value;
+        }
+        return acc;
+      },
+      {},
+    );
+
     // const res = await executionsApi.run(workflow.id, {});
 
     const response = await fetch("http://localhost:4000/api/executions", {
@@ -58,12 +74,10 @@ export function EditorPage() {
       headers: {
         "Content-Type": "application/json",
         Accept: "text/event-stream",
-    },
+      },
       body: JSON.stringify({
         workflowId: workflow.id,
-        input: {
-          url: "https://api.open-meteo.com/v1/forecast?latitude=40.71&longitude=-74.01&current_weather=true"
-        },
+        input: executionInput,
       }),
     });
 
