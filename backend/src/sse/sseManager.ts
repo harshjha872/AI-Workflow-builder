@@ -31,8 +31,6 @@ class SSEManager {
     if(res) {
        res.write(`event: ${eventType}\n`);
        res.write(`data: ${JSON.stringify({ data, executionId})}\n\n`);
-    } else {
-      this.emit(executionId, eventType, data)
     }
   }
 }
