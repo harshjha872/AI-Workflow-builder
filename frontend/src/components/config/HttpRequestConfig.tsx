@@ -20,8 +20,6 @@ interface Props {
 
 export function HttpRequestConfig({ config, onChange }: Props) {
   const [showPicker, setShowPicker] = useState(false);
-  const workflow = useAppSelector((s) => s.workflow);
-  const nodes = workflow.nodes;
   const ref = useRef(null);
 
   const { register, watch, setValue, getValues } = useForm<HttpConfig>({
@@ -86,13 +84,10 @@ export function HttpRequestConfig({ config, onChange }: Props) {
             {...register("url")}
             className="relative w-full rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-900 dark:text-zinc-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
           />
-          {/* <div className="h-[26px] w-[30px] ml-1 border dark:bg-zinc-900 dark:border-zinc-700 rounded-md flex items-center justify-center">
-            {'<>'}
-          </div> */}
         </div>
         {showPicker && !getValues("url") && (
           <div className="absolute left-0 top-12 z-10">
-            <VariablePicker nodes={nodes} onSelect={insertVariable} />
+            <VariablePicker onSelect={insertVariable} />
           </div>
         )}
       </label>

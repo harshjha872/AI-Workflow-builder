@@ -2,11 +2,10 @@ import { useAppSelector } from "../../store";
 import { Edge, Node } from "@xyflow/react";
 
 interface VariablePickerProps {
-  nodes: Array<Node>;
   onSelect: (path: string) => void;
 }
 
-export function VariablePicker({ nodes, onSelect }: VariablePickerProps) {
+export function VariablePicker({ onSelect }: VariablePickerProps) {
   const selectedNodeId = useAppSelector((s) => s.workflow.selectedNodeId);
   const AllNodes = useAppSelector((s) => s.workflow.nodes);
   const AllEdges = useAppSelector((s) => s.workflow.edges);

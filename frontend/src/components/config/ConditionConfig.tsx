@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { VariablePicker } from "../ui/VariablePicker";
-import { useAppSelector } from "../../store";
 
 interface ConditionConfigShape {
   expression: string;
@@ -19,8 +18,6 @@ export function ConditionConfig({ config, onChange }: Props) {
   const [activePicker, setActivePicker] = useState<
     keyof ConditionConfigShape | null
   >(null);
-  const workflow = useAppSelector((s) => s.workflow);
-  const nodes = workflow.nodes;
   const ref = useRef<HTMLDivElement>(null);
 
   const { register, watch, setValue, getValues } =
@@ -75,7 +72,6 @@ export function ConditionConfig({ config, onChange }: Props) {
         {activePicker === "expression" && !getValues("expression") && (
           <div className="absolute left-0 top-full mt-1 z-10 w-full">
             <VariablePicker
-              nodes={nodes}
               onSelect={(path) => insertVariable(path, "expression")}
             />
           </div>
