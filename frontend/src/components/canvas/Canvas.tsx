@@ -18,6 +18,7 @@ import {
   setEdges,
   setNodes,
   setSelectedNodeId,
+  updateNodeConfig,
 } from "../../store/workflowSlice";
 import { BaseNode } from "../nodes/BaseNode";
 import { TriggerNode } from "../nodes/TriggerNode";
@@ -57,6 +58,19 @@ function InnerCanvas() {
     const newEdges = addEdge(connection, edges);
     setLocalEdges(newEdges);
     dispatch(setEdges(newEdges));
+
+    const sourceNode = nodes.find((n) => n.id === connection.source);
+    if (sourceNode?.type === "condition") {
+      const config = { ...(sourceNode.data.config as Record<string, any>) };
+      if (connection.sourceHandle === "true") {
+        config.truePath = connection.target;
+      } else if (connection.sourceHandle === "false") {
+        config.falsePath = connection.target;
+      } else if (connection.sourceHandle === "error") {
+        config.errorPath = connection.target;
+      }
+      dispatch(updateNodeConfig({ nodeId: sourceNode.id, config }));
+    }
   };
 
   const handleNodesChange = (changes: any) => {
@@ -80,9 +94,9 @@ function InnerCanvas() {
         onConnect={handleConnect}
         nodeTypes={nodeTypes}
         onNodeClick={(_, node) => {
-          dispatch(setSelectedNodeId(null))
+          dispatch(setSelectedNodeId(null));
           setTimeout(() => {
-            dispatch(setSelectedNodeId(node.id))
+            dispatch(setSelectedNodeId(node.id));
           }, 100);
         }}
         onPaneClick={() => dispatch(setSelectedNodeId(null))}

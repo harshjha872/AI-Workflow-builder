@@ -7,6 +7,7 @@ interface ConditionConfigShape {
   expression: string;
   truePath: string;
   falsePath: string;
+  errorPath: string;
 }
 
 interface Props {
@@ -94,14 +95,6 @@ export function ConditionConfig({ config, onChange }: Props) {
             className="w-full rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-900 dark:text-zinc-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
           />
         </div>
-        {activePicker === "truePath" && !getValues("truePath") && (
-          <div className="absolute left-0 top-full mt-1 z-10 w-full">
-            <VariablePicker
-              nodes={nodes}
-              onSelect={(path) => insertVariable(path, "truePath")}
-            />
-          </div>
-        )}
       </label>
       <label className="block relative space-y-1">
         <span className="text-slate-600 dark:text-zinc-400">
@@ -117,14 +110,21 @@ export function ConditionConfig({ config, onChange }: Props) {
             className="w-full rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-900 dark:text-zinc-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
           />
         </div>
-        {activePicker === "falsePath" && !getValues("falsePath") && (
-          <div className="absolute left-0 top-full mt-1 z-10 w-full">
-            <VariablePicker
-              nodes={nodes}
-              onSelect={(path) => insertVariable(path, "falsePath")}
-            />
-          </div>
-        )}
+      </label>
+      <label className="block relative space-y-1">
+        <span className="text-slate-600 dark:text-zinc-400">
+          Error Path Node ID
+        </span>
+        <div className="flex items-center">
+          <input
+            autoComplete="off"
+            onClick={() =>
+              setActivePicker(activePicker === "errorPath" ? null : "errorPath")
+            }
+            {...register("errorPath")}
+            className="w-full rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-900 dark:text-zinc-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
+          />
+        </div>
       </label>
     </div>
   );

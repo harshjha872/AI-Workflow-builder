@@ -17,9 +17,10 @@ export const NODE_DEFAULTS = {
     timeoutMs: 10000
   },
   condition: {
-    expression: 'context.score > 0.5',
-    truePath: '',
-    falsePath: ''
+    expression: "context.score > 0.5",
+    truePath: "",
+    falsePath: "",
+    errorPath: "",
   },
   transform: {
     code: 'return { output: context.input }',
