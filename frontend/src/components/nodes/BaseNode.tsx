@@ -2,6 +2,8 @@ import { Handle, Position } from "@xyflow/react";
 import { ReactNode } from "react";
 import { useAppSelector } from "../../store";
 import { statusColors } from "../../utils/statusColors";
+import { deleteNode } from "../../store/workflowSlice";
+import { useAppDispatch } from "../../store";
 
 interface BaseNodeProps {
   id: string;
@@ -20,6 +22,11 @@ export function BaseNode({
 }: BaseNodeProps) {
   const status = useAppSelector((s) => s.execution.nodeStatuses[id]);
   const statusClass = statusColors[status ?? "default"] ?? statusColors.default;
+  const dispatch = useAppDispatch();
+
+  const onDelete = (id: string) => {
+    dispatch(deleteNode(id));
+  };
 
   return (
     <div
@@ -32,9 +39,14 @@ export function BaseNode({
           className="h-2 w-2 bg-slate-500"
         />
       )}
+      {/* <div className="flex items-center justify-between"> */}
       <div className="px-3 py-2 text-sm font-medium text-slate-700 dark:text-zinc-200">
         {data.label}
       </div>
+      {/* </div>
+      <div onClick={(e) => {e.preventDefault(); onDelete(id);}} className="px-3 py-1 text-xs text-red-500 hover:text-red-700 cursor-pointer">
+        Delete
+      </div> */}
       <div className="px-3 pb-3 text-xs text-slate-600 dark:text-zinc-400">
         {children}
       </div>

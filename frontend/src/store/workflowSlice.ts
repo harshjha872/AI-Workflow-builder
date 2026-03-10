@@ -77,6 +77,11 @@ const workflowSlice = createSlice({
       }
       state.isSaved = false;
     },
+    deleteEdge(state, action: PayloadAction<string>) {
+      const id = action.payload;
+      state.edges = state.edges.filter((e) => e.id !== id);
+      state.isSaved = false;
+    },
     setSelectedNodeId(state, action: PayloadAction<string | null>) {
       state.selectedNodeId = action.payload;
     },
@@ -104,7 +109,8 @@ export const {
   setSelectedNodeId,
   loadWorkflow,
   markSaved,
-  setSaving
+  setSaving,
+  deleteEdge
 } = workflowSlice.actions;
 
 export default workflowSlice.reducer;

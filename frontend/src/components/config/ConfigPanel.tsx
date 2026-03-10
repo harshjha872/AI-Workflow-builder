@@ -1,11 +1,13 @@
 import { useAppDispatch, useAppSelector } from "../../store";
-import { updateNodeConfig } from "../../store/workflowSlice";
+import { deleteNode, updateNodeConfig } from "../../store/workflowSlice";
 import { TriggerConfig1 } from "./TriggerConfig";
 import { LLMCallConfig } from "./LLMCallConfig";
 import { HttpRequestConfig } from "./HttpRequestConfig";
 import { ConditionConfig } from "./ConditionConfig";
 import { TransformConfig } from "./TransformConfig";
 import { OutputConfig } from "./OutputConfig";
+import { Button } from "@/components/ui/button";
+import { IconTrash } from "@tabler/icons-react";
 
 const CONFIG_FORMS: Record<string, React.ComponentType<any>> = {
   trigger: TriggerConfig1,
@@ -25,6 +27,10 @@ export function ConfigPanel() {
   const Form = CONFIG_FORMS[node.type ?? ""] ?? null;
   if (!Form) return null;
 
+  const onDelete = (nodeId: string) => {
+    dispatch(deleteNode(nodeId));
+  };
+
   return (
     <aside className="w-80 border-l border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 transition-colors">
       <Form
@@ -33,6 +39,17 @@ export function ConfigPanel() {
           dispatch(updateNodeConfig({ nodeId: node.id, config: cfg }))
         }
       />
+      <div className="px-4 pt-2">
+        <h2 className="text-sm font-semibold text-slate-800 dark:text-red-500">
+          Delete
+        </h2>
+        <p className="text-xs text-gray-500 pt-3">
+          Delete the node and all connected edges. This action cannot be undone.
+        </p>
+        <Button onClick={() => onDelete(node.id)} className="mt-3">
+          <IconTrash /> Delete
+        </Button>
+      </div>
     </aside>
   );
 }

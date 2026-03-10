@@ -27,6 +27,7 @@ import { HttpRequestNode } from "../nodes/HttpRequestNode";
 import { ConditionNode } from "../nodes/ConditionNode";
 import { TransformNode } from "../nodes/TransformNode";
 import { OutputNode } from "../nodes/OutputNode";
+import { CustomEdge } from "../edges/BaseEdge";
 
 const nodeTypes = {
   trigger: TriggerNode,
@@ -36,6 +37,10 @@ const nodeTypes = {
   transform: TransformNode,
   output: OutputNode,
   base: BaseNode,
+};
+
+const edgeTypes = {
+  custom: CustomEdge,
 };
 
 function InnerCanvas() {
@@ -93,6 +98,7 @@ function InnerCanvas() {
         onEdgesChange={handleEdgesChange}
         onConnect={handleConnect}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         onNodeClick={(_, node) => {
           dispatch(setSelectedNodeId(null));
           setTimeout(() => {
@@ -103,17 +109,18 @@ function InnerCanvas() {
         onDragOver={onDragOver}
         onDrop={onDrop}
         defaultEdgeOptions={{
+          type: "custom",
           animated: true,
           style: {
             stroke: "#d4d4d8",
-            strokeWidth: 2,
-            strokeDasharray: "4 4",
+            // strokeWidth: 2,
+            // strokeDasharray: "4 4",
           },
         }}
         connectionLineStyle={{
           stroke: "#d4d4d8",
-          strokeWidth: 2,
-          strokeDasharray: "2 6",
+          // strokeWidth: 2,
+          // strokeDasharray: "2 6",
         }}
       >
         <Background />
