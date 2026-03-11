@@ -59,30 +59,53 @@ function InnerCanvas() {
     setLocalEdges(workflow.edges as Edge[]);
   }, [setLocalEdges, setLocalNodes, workflow.edges, workflow.nodes]);
 
+  // Global watcher to keep condition node paths in sync with edges
+  useEffect(() => {
+    const conditionNodes = workflow.nodes.filter((n) => n.type === "condition");
+
+    conditionNodes.forEach((node) => {
+      const outgoingEdges = workflow.edges.filter((e) => e.source === node.id);
+
+      const trueEdge = outgoingEdges.find((e) => e.sourceHandle === "true");
+      const falseEdge = outgoingEdges.find((e) => e.sourceHandle === "false");
+      const errorEdge = outgoingEdges.find((e) => e.sourceHandle === "error");
+
+      const currentConfig = (node.data?.config as Record<string, any>) || {};
+
+      const newTruePath = trueEdge ? trueEdge.target : undefined;
+      const newFalsePath = falseEdge ? falseEdge.target : undefined;
+      const newErrorPath = errorEdge ? errorEdge.target : undefined;
+
+      if (
+        currentConfig.truePath !== newTruePath ||
+        currentConfig.falsePath !== newFalsePath ||
+        currentConfig.errorPath !== newErrorPath
+      ) {
+        dispatch(
+          updateNodeConfig({
+            nodeId: node.id,
+            config: {
+              ...currentConfig,
+              truePath: newTruePath,
+              falsePath: newFalsePath,
+              errorPath: newErrorPath,
+            },
+          }),
+        );
+      }
+    });
+  }, [workflow.nodes, workflow.edges, dispatch]);
+
   const handleConnect = (connection: Edge | any) => {
     const newEdges = addEdge(connection, edges);
     setLocalEdges(newEdges);
     dispatch(setEdges(newEdges));
-
-    const sourceNode = nodes.find((n) => n.id === connection.source);
-    if (sourceNode?.type === "condition") {
-      const config = { ...(sourceNode.data.config as Record<string, any>) };
-      if (connection.sourceHandle === "true") {
-        config.truePath = connection.target;
-      } else if (connection.sourceHandle === "false") {
-        config.falsePath = connection.target;
-      } else if (connection.sourceHandle === "error") {
-        config.errorPath = connection.target;
-      }
-      dispatch(updateNodeConfig({ nodeId: sourceNode.id, config }));
-    }
   };
 
   const handleNodesChange = (changes: any) => {
     onNodesChange(changes);
     dispatch(setNodes(nodes));
   };
-
 
   return (
     <div className="flex-1">

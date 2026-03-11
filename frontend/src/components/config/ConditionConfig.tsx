@@ -77,7 +77,7 @@ export function ConditionConfig({ config, onChange }: Props) {
           </div>
         )}
       </label>
-      <label className="block relative space-y-1">
+      {/* <label className="block relative space-y-1">
         <span className="text-slate-600 dark:text-zinc-400">
           True Path Node ID
         </span>
@@ -121,7 +121,7 @@ export function ConditionConfig({ config, onChange }: Props) {
             className="w-full rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-900 dark:text-zinc-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
           />
         </div>
-      </label>
+      </label> */}
     </div>
   );
 }
