@@ -69,6 +69,8 @@ export function EditorPage() {
 
     // const res = await executionsApi.run(workflow.id, {});
 
+    // example Api: https://api.open-meteo.com/v1/forecast?latitude=40.71&longitude=-74.01&current_weather=true
+
     const response = await fetch("http://localhost:4000/api/executions", {
       method: "POST",
       headers: {
