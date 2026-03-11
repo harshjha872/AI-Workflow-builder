@@ -6,6 +6,7 @@ export type NodeExecutionStatus = 'RUNNING' | 'SUCCESS' | 'ERROR';
 export interface ExecutionLogEntry {
   nodeId: string;
   type: string;
+  nodeType?: string;
   status: NodeExecutionStatus;
   output?: unknown;
   durationMs?: number;
@@ -50,12 +51,13 @@ const executionSlice = createSlice({
       state.status = 'RUNNING';
       state.isDrawerOpen = true;
     },
-    setNodeRunning(state, action: PayloadAction<string>) {
-      const nodeId = action.payload;
+    setNodeRunning(state, action: PayloadAction<{ nodeId: string; nodeType: string }>) {
+      const { nodeId, nodeType } = action.payload;
       state.nodeStatuses[nodeId] = 'RUNNING';
       state.logs.push({
         nodeId,
         type: 'node_start',
+        nodeType,
         status: 'RUNNING',
         startedAt: new Date().toISOString()
       });

@@ -15,6 +15,11 @@ import {
   openDrawer,
   resetExecution,
   startExecution,
+  setNodeRunning,
+  setNodeSuccess,
+  setNodeError,
+  setExecutionComplete,
+  setExecutionError
 } from "../store/executionSlice";
 
 export function EditorPage() {
@@ -86,25 +91,56 @@ export function EditorPage() {
     if (response.body) {
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
+      let buffer = "";
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
 
         const chunk = decoder.decode(value, { stream: true });
-        // Parse SSE format: "data: {...}\n\n"
-        const lines = chunk.split("\n");
-        for (const line of lines) {
-          // if (line.startsWith("data: ")) {
-          //   const data = line.slice(6); // remove "data: "
-          console.log(line);
-
-          //TODO - emit logs to the bottom logs in UI
-          // }
+        buffer += chunk;
+        
+        let doubleNewlineIndex;
+        while ((doubleNewlineIndex = buffer.indexOf("\n\n")) !== -1) {
+          const event = buffer.slice(0, doubleNewlineIndex);
+          buffer = buffer.slice(doubleNewlineIndex + 2);
+          
+          const lines = event.split("\n");
+          let eventType = "";
+          let eventData: any = null;
+          
+          for (const line of lines) {
+            if (line.startsWith("event: ")) {
+              eventType = line.slice(7).trim();
+            } else if (line.startsWith("data: ")) {
+              try {
+                eventData = JSON.parse(line.slice(6));
+              } catch (e) {
+                console.error("Failed to parse SSE data", e);
+              }
+            }
+          }
+          
+          if (eventType && eventData) {
+            const payload = eventData.data || eventData; // Handle both wrapped and direct payloads
+            
+            if (eventType === "executionId") {
+              dispatch(startExecution(payload.executionId));
+            } else if (eventType === "node_start") {
+              dispatch(setNodeRunning({ nodeId: payload.nodeId, nodeType: payload.nodeType }));
+            } else if (eventType === "node_success") {
+              dispatch(setNodeSuccess({ nodeId: payload.nodeId, output: payload.output }));
+            } else if (eventType === "node_error") {
+              dispatch(setNodeError({ nodeId: payload.nodeId, error: payload.error }));
+            } else if (eventType === "execution_complete") {
+              dispatch(setExecutionComplete(payload.output));
+            } else if (eventType === "execution_error") {
+              dispatch(setExecutionError(payload.error));
+            }
+          }
         }
       }
     }
-    // dispatch(startExecution(res.executionId));
   };
 
   return (
