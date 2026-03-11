@@ -83,10 +83,6 @@ function InnerCanvas() {
     dispatch(setNodes(nodes));
   };
 
-  const handleEdgesChange = (changes: any) => {
-    onEdgesChange(changes);
-    dispatch(setEdges(edges));
-  };
 
   return (
     <div className="flex-1">
@@ -95,7 +91,7 @@ function InnerCanvas() {
         nodes={nodes}
         edges={edges}
         onNodesChange={handleNodesChange}
-        onEdgesChange={handleEdgesChange}
+        onEdgesChange={onEdgesChange}
         onConnect={handleConnect}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}

@@ -46,8 +46,8 @@ export function ConfigPanel() {
         <p className="text-xs text-gray-500 pt-3">
           Delete the node and all connected edges. This action cannot be undone.
         </p>
-        <Button onClick={() => onDelete(node.id)} className="mt-3">
-          <IconTrash /> Delete
+        <Button variant="outline" size="sm" onClick={() => onDelete(node.id)} className="mt-3 rounded-md">
+          <IconTrash /> Delete node
         </Button>
       </div>
     </aside>

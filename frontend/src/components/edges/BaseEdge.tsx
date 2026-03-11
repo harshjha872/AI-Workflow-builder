@@ -1,7 +1,13 @@
-import { BaseEdge, EdgeLabelRenderer, getSmoothStepPath } from "@xyflow/react";
+import {
+  BaseEdge,
+  EdgeLabelRenderer,
+  getSmoothStepPath,
+  useReactFlow,
+} from "@xyflow/react";
 import { IconXFilled } from "@tabler/icons-react";
-import { useAppDispatch, useAppSelector } from "../../store";
-import { deleteEdge, setEdges } from "../../store/workflowSlice";
+import { deleteEdge } from "@/store/workflowSlice";
+import { useAppDispatch } from "@/store";
+import { Button } from "../ui/button";
 
 export function CustomEdge({
   id,
@@ -28,9 +34,11 @@ export function CustomEdge({
     offset: 20,
   });
 
-  const onDelete = (id: string) => {
+  const onDelete = (event: React.MouseEvent, id: string) => {
+    event.stopPropagation();
     dispatch(deleteEdge(id));
   };
+
   return (
     <>
       <BaseEdge
@@ -48,9 +56,15 @@ export function CustomEdge({
             pointerEvents: "all",
           }}
         >
-          <button onClick={() => onDelete(id)}>
-            <IconXFilled color="red" size={20} />
-          </button>
+          <Button
+            variant="ghost"
+            size='icon-sm'
+            className="pointer-events-auto cursor-pointer flex items-center justify-center translate-y-[2px] rounded-full"
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={(e) => onDelete(e, id)}
+          >
+            <IconXFilled color="red" size={30} />
+          </Button>
         </div>
       </EdgeLabelRenderer>
     </>
