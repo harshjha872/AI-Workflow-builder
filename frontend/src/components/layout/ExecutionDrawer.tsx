@@ -17,7 +17,7 @@ export function ExecutionDrawer() {
     .reduce((acc, log) => {
       // Find the corresponding node_start log to get the nodeType
       const startLog = logs.find(l => l.nodeId === log.nodeId && l.type === 'node_start');
-      const key = startLog?.nodeType ? `${startLog.nodeType}` : log.nodeId;
+      const key = startLog?.nodeType ? `${startLog.nodeType} (${log.nodeId})` : log.nodeId;
       acc[key] = log.output;
       return acc;
     }, {} as Record<string, unknown>);

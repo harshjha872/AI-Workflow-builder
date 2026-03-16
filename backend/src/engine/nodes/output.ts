@@ -8,7 +8,7 @@ export interface OutputConfig {
 export async function execute(config: OutputConfig, context: ExecutionContext): Promise<Record<string, unknown>> {
   const result: Record<string, unknown> = {};
   for (const key of config.outputKeys) {
-    const value = context.get(key);
+    const value = context.data[key];
     if (value !== undefined) {
       result[key] = value;
     }

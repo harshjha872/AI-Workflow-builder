@@ -1,6 +1,7 @@
 import { createApp } from './app.js';
 import config from './config.js';
 import logger from './middleware/requestLogger.js';
+import './queue/worker.js';
 
 async function main() {
   const app = await createApp();

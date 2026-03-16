@@ -6,8 +6,8 @@ export interface TriggerConfig {
   inputFields?: Array<{ key: string; value: string }>;
 }
 
-export async function execute(config: TriggerConfig, context: ExecutionContext): Promise<Record<string, unknown>> {
-  const input = context.get('input') as Record<string, unknown> | undefined;
+export async function execute(config: TriggerConfig, context: any): Promise<Record<string, unknown>> {
+  const input = context.data['input'];
   if (!input) {
     throw new Error('Trigger node requires input data');
   }

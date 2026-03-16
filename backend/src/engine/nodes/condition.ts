@@ -6,7 +6,7 @@ export interface ConditionConfig {
   falsePath: string;
 }
 
-export async function execute(config: ConditionConfig, context: ExecutionContext): Promise<Record<string, unknown>> {
+export async function execute(config: ConditionConfig, context: any): Promise<Record<string, unknown>> {
   let result: boolean;
   try {
     const fn = new Function('context', `return ${config.expression}`);

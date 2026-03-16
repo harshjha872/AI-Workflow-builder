@@ -16,28 +16,28 @@ export function ConditionNode(props: any) {
 
       <div className="flex flex-col gap-2">
         <div className="flex justify-end items-center relative h-5">
-          <span className="text-[10px] font-medium text-emerald-600 dark:text-emerald-400 mr-2">
+          <span className="text-[10px] font-medium text-emerald-600 dark:text-zinc-400 mr-2">
             True
           </span>
           <Handle
             type="source"
             position={Position.Right}
             id="true"
-            className="w-2 h-2 !bg-emerald-500 !-right-4"
+            className="w-2 h-2 !bg-zinc-400 !-right-4"
           />
         </div>
         <div className="flex justify-end items-center relative h-5">
-          <span className="text-[10px] font-medium text-amber-600 dark:text-amber-400 mr-2">
+          <span className="text-[10px] font-medium text-amber-600 dark:text-zinc-400 mr-2">
             False
           </span>
           <Handle
             type="source"
             position={Position.Right}
             id="false"
-            className="w-2 h-2 !bg-amber-500 !-right-4"
+            className="w-2 h-2 !bg-zinc-400 !-right-4"
           />
         </div>
-        <div className="flex justify-end items-center relative h-5">
+        {/* <div className="flex justify-end items-center relative h-5">
           <span className="text-[10px] font-medium text-red-600 dark:text-red-400 mr-2">
             Error
           </span>
@@ -47,7 +47,7 @@ export function ConditionNode(props: any) {
             id="error"
             className="w-2 h-2 !bg-red-500 !-right-4"
           />
-        </div>
+        </div> */}
       </div>
     </BaseNode>
   );

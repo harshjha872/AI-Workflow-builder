@@ -8,7 +8,7 @@ export interface TransformConfig {
   outputKey: string;
 }
 
-export async function execute(config: TransformConfig, context: ExecutionContext): Promise<Record<string, unknown>> {
+export async function execute(config: TransformConfig, context: any): Promise<Record<string, unknown>> {
   const vm = new VM({
     timeout: appConfig.transformTimeoutMs,
     sandbox: { context: context.data },

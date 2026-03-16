@@ -55,7 +55,7 @@ async function callAnthropic(
 
 export async function execute(
   config: LLMCallConfig,
-  context: ExecutionContext,
+  context: any,
 ): Promise<Record<string, unknown>> {
   const systemPrompt = interpolate(config.systemPrompt, context.data);
   const userPrompt = interpolate(config.userPrompt, context.data);
