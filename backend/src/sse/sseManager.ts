@@ -26,13 +26,6 @@ class SSEManager {
   has(executionId: string): boolean {
     return this.connections.has(executionId);
   }
-
-  emitFromPost(executionId: string, eventType: string, data:unknown, res: any) {
-    if(res) {
-       res.write(`event: ${eventType}\n`);
-       res.write(`data: ${JSON.stringify({ data, executionId})}\n\n`);
-    }
-  }
 }
 
 export const sseManager = new SSEManager();
