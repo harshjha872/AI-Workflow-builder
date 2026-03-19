@@ -3,11 +3,12 @@ import Anthropic from "@anthropic-ai/sdk";
 import { GoogleGenAI } from "@google/genai";
 import { ExecutionContext } from "../context.js";
 import { interpolate } from "../interpolate.js";
-import config from "../../config.js";
+import appConfig from "../../config.js";
 
 export interface LLMCallConfig {
   provider: "openai" | "anthropic" | "gemini";
   model: string;
+  apiKey?: string;
   systemPrompt: string;
   userPrompt: string;
   outputKey: string;
@@ -21,8 +22,9 @@ async function callOpenAI(
   model: string,
   maxTokens: number,
   temperature: number,
+  apiKey?: string,
 ): Promise<string> {
-  const client = new OpenAI({ apiKey: config.openaiApiKey });
+  const client = new OpenAI({ apiKey });
   const response = await client.chat.completions.create({
     model,
     max_tokens: maxTokens,
@@ -41,8 +43,9 @@ async function callAnthropic(
   model: string,
   maxTokens: number,
   temperature: number,
+  apiKey?: string,
 ): Promise<string> {
-  const client = new Anthropic({ apiKey: config.anthropicApiKey });
+  const client = new Anthropic({ apiKey });
   const response = await client.messages.create({
     model,
     max_tokens: maxTokens,
@@ -60,10 +63,11 @@ async function callGemini(
   model: string,
   maxTokens: number,
   temperature: number,
+  apiKey?: string,
 ): Promise<string> {
-  const ai = new GoogleGenAI({ apiKey: config.geminiApiKey });
+  const ai = new GoogleGenAI({ apiKey });
   const response = await ai.models.generateContent({
-    model: 'gemini-3-flash-preview',
+    model,
     contents: userPrompt,
     config: {
       systemInstruction: systemPrompt,
@@ -78,6 +82,10 @@ export async function execute(
   config: LLMCallConfig,
   context: any,
 ): Promise<Record<string, unknown>> {
+  if (!config.apiKey) {
+    throw new Error(`API key is required for ${config.provider}. Please add it in the LLM Call node config.`);
+  }
+
   const systemPrompt = interpolate(config.systemPrompt, context.data);
   const userPrompt = interpolate(config.userPrompt, context.data);
   const maxTokens = config.maxTokens ?? 1024;
@@ -88,17 +96,17 @@ export async function execute(
   switch (config.provider) {
     case "openai":
       responseText = await callOpenAI(
-        systemPrompt, userPrompt, config.model, maxTokens, temperature,
+        systemPrompt, userPrompt, config.model, maxTokens, temperature, config.apiKey,
       );
       break;
     case "anthropic":
       responseText = await callAnthropic(
-        systemPrompt, userPrompt, config.model, maxTokens, temperature,
+        systemPrompt, userPrompt, config.model, maxTokens, temperature, config.apiKey,
       );
       break;
     case "gemini":
       responseText = await callGemini(
-        systemPrompt, userPrompt, config.model, maxTokens, temperature,
+        systemPrompt, userPrompt, config.model, maxTokens, temperature, config.apiKey,
       );
       break;
     default:

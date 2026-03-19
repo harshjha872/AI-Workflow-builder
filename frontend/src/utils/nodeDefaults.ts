@@ -3,6 +3,7 @@ export const NODE_DEFAULTS = {
   llmCall: {
     provider: 'openai',
     model: 'gpt-4o',
+    apiKey: '',
     systemPrompt: 'You are a helpful assistant.',
     userPrompt: '',
     outputKey: 'result',

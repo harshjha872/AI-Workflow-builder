@@ -30,6 +30,7 @@ const PROVIDER_MODELS: Record<string, string[]> = {
 interface LLMConfig {
   provider: string;
   model: string;
+  apiKey: string;
   systemPrompt: string;
   userPrompt: string;
   outputKey: string;
@@ -107,6 +108,18 @@ export function LLMCallConfig({ config, onChange }: Props) {
             <option key={m} value={m}>{m}</option>
           ))}
         </select>
+      </label>
+      <label className="block space-y-1">
+        <span className="text-slate-600 dark:text-zinc-400">
+          API Key
+          <span className="ml-1 text-[10px] text-red-400">*required</span>
+        </span>
+        <input
+          type="password"
+          placeholder="Enter your API key"
+          {...register("apiKey")}
+          className="w-full rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-900 dark:text-zinc-100 px-2 py-1 text-xs font-mono focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
+        />
       </label>
       <label className="block space-y-1">
         <span className="text-slate-600 dark:text-zinc-400">
