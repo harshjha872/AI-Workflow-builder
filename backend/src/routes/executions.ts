@@ -11,7 +11,8 @@ import {
 import { getWorkflowById } from "../db/queries/workflows.js";
 import { executeWorkflow } from "../engine/executor.js";
 import { sseManager } from "../sse/sseManager.js";
-import { WorkflowNotFoundError, ExecutionNotFoundError } from "../errors.js";
+import { WorkflowNotFoundError, ExecutionNotFoundError, CycleDetectedError } from "../errors.js";
+import { hasCycle } from "../engine/dag.js";
 import logger from "../middleware/requestLogger.js";
 
 const router = Router();
@@ -68,6 +69,25 @@ router.post(
     const startedAt = new Date().toISOString();
     updateExecution(executionId, { status: "RUNNING", startedAt });
 
+    // Check for cycles before launching execution
+    if (hasCycle(workflow.graph.nodes, workflow.graph.edges)) {
+      const cycleError = new CycleDetectedError();
+
+      updateExecution(executionId, {
+        status: "ERROR",
+        error: cycleError.message,
+        finishedAt: new Date().toISOString(),
+      });
+
+      sseManager.emit(executionId, "execution_error", {
+        status: "ERROR",
+        error: cycleError.message,
+        code: cycleError.code,
+      });
+
+      return;
+    }
+
     try {
       //Execute workflow
       executeWorkflow(executionId, workflow.graph, input);
@@ -85,31 +105,6 @@ router.post(
         error: errorMessage,
       });
     }
-
-    // .then(({ output, logs }) => {
-    //   updateExecution(executionId, {
-    //     status: 'SUCCESS',
-    //     output,
-    //     logs,
-    //     finishedAt: new Date().toISOString(),
-    //   });
-    // })
-    // .catch((err: unknown) => {
-    //   const errorMessage = err instanceof Error ? err.message : String(err);
-    //   logger.error({ executionId, err }, 'Workflow execution failed');
-    //   updateExecution(executionId, {
-    //     status: 'ERROR',
-    //     error: errorMessage,
-    //     finishedAt: new Date().toISOString(),
-    //   });
-    //   sseManager.emitFromPost(executionId, 'execution_error', {
-    //     status: 'ERROR',
-    //     error: errorMessage,
-    //   }, res);
-    // })
-    // .finally(() => {
-    //   sseManager.close(executionId);
-    // });
   }),
 );
 

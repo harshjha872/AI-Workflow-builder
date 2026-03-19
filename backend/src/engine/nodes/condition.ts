@@ -17,6 +17,6 @@ export async function execute(config: ConditionConfig, context: any): Promise<Re
 
   return {
     _conditionResult: result,
-    _nextNodeId: result ? config.truePath : config.falsePath,
+    _branch: result ? "true" : "false",
   };
 }

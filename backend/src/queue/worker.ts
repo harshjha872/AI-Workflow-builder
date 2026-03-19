@@ -160,24 +160,28 @@ function getNextNodeId({
 }: {
   graph: any;
   currentNodeId: string;
-  nodeResult: any;
+  nodeResult: Record<string, unknown>;
 }): string | null {
   const outgoingEdges = graph.edges.filter(
     (e: any) => e.source === currentNodeId,
   );
 
-  // no outgoing edges = terminal node (Output)
   if (outgoingEdges.length === 0) return null;
 
-  // normal node — single outgoing edge
-  if (outgoingEdges.length === 1) return outgoingEdges[0].target;
+  // If the node declared a branch, find the edge with matching sourceHandle
+  const branch = nodeResult._branch as string | undefined;
 
-  // condition node — result tells us which branch to take
-  // condition executor returns the winning nodeId directly
-  if (outgoingEdges.some((e: any) => e.target === nodeResult._nextNodeId)) {
-    return nodeResult._nextNodeId;
+  if (branch) {
+    const branchEdge = outgoingEdges.find(
+      (e: any) => e.sourceHandle === branch,
+    );
+    return branchEdge?.target ?? null;
   }
 
-  // fallback — take the first edge (shouldn't reach here)
-  return outgoingEdges[0].target;
+  // Default: single-output node — follow the edge with no sourceHandle
+  // (default port), or fall back to the first edge
+  const defaultEdge =
+    outgoingEdges.find((e: any) => !e.sourceHandle) ?? outgoingEdges[0];
+
+  return defaultEdge?.target ?? null;
 }

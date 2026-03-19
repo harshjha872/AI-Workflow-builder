@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { ChevronDown, ChevronUp, X } from "lucide-react";
+import { AlertTriangle, ChevronDown, ChevronUp, X } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { StatusBadge } from "../ui/Badge";
 import { JsonViewer } from "../ui/JsonViewer";
 import { closeDrawer } from "../../store/executionSlice";
 
 export function ExecutionDrawer() {
-  const { isDrawerOpen, status, logs, executionId } = useAppSelector((s) => s.execution);
+  const { isDrawerOpen, status, logs, executionId, error } = useAppSelector((s) => s.execution);
   const dispatch = useAppDispatch();
   const [isExpanded, setIsExpanded] = useState(true);
 
@@ -51,7 +51,16 @@ export function ExecutionDrawer() {
       </div>
 
       {isExpanded && (
-        <div className="flex flex-1 overflow-hidden">
+        <div className="flex flex-col flex-1 overflow-hidden">
+          {/* Workflow-level error banner (e.g. cycle detected) */}
+          {status === "ERROR" && error && (
+            <div className="flex items-center gap-3 px-4 py-3 bg-red-950/60 border-b border-red-900/50 text-red-300 text-sm shrink-0">
+              <AlertTriangle size={18} className="text-red-400 shrink-0" />
+              <span className="font-medium">{error}</span>
+            </div>
+          )}
+
+          <div className="flex flex-1 overflow-hidden">
           <div className="flex w-1/2 flex-col border-r border-zinc-800 p-4 pt-3">
             <div className="mb-2">
               <h3 className="font-semibold text-xs text-zinc-400 uppercase tracking-wider">Logs</h3>
@@ -96,6 +105,7 @@ export function ExecutionDrawer() {
                 <div className="text-zinc-500 italic text-xs font-mono">No outputs generated yet...</div>
               )}
             </div>
+          </div>
           </div>
         </div>
       )}
