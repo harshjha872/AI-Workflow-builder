@@ -1,11 +1,12 @@
 import OpenAI from "openai";
 import Anthropic from "@anthropic-ai/sdk";
+import { GoogleGenAI } from "@google/genai";
 import { ExecutionContext } from "../context.js";
 import { interpolate } from "../interpolate.js";
 import config from "../../config.js";
 
 export interface LLMCallConfig {
-  provider: "openai" | "anthropic";
+  provider: "openai" | "anthropic" | "gemini";
   model: string;
   systemPrompt: string;
   userPrompt: string;
@@ -53,6 +54,26 @@ async function callAnthropic(
   return block.type === "text" ? block.text : "";
 }
 
+async function callGemini(
+  systemPrompt: string,
+  userPrompt: string,
+  model: string,
+  maxTokens: number,
+  temperature: number,
+): Promise<string> {
+  const ai = new GoogleGenAI({ apiKey: config.geminiApiKey });
+  const response = await ai.models.generateContent({
+    model: 'gemini-3-flash-preview',
+    contents: userPrompt,
+    config: {
+      systemInstruction: systemPrompt,
+      maxOutputTokens: maxTokens,
+      temperature,
+    },
+  });
+  return response.text ?? "";
+}
+
 export async function execute(
   config: LLMCallConfig,
   context: any,
@@ -64,22 +85,24 @@ export async function execute(
 
   let responseText: string;
 
-  if (config.provider === "openai") {
-    responseText = await callOpenAI(
-      systemPrompt,
-      userPrompt,
-      config.model,
-      maxTokens,
-      temperature,
-    );
-  } else {
-    responseText = await callAnthropic(
-      systemPrompt,
-      userPrompt,
-      config.model,
-      maxTokens,
-      temperature,
-    );
+  switch (config.provider) {
+    case "openai":
+      responseText = await callOpenAI(
+        systemPrompt, userPrompt, config.model, maxTokens, temperature,
+      );
+      break;
+    case "anthropic":
+      responseText = await callAnthropic(
+        systemPrompt, userPrompt, config.model, maxTokens, temperature,
+      );
+      break;
+    case "gemini":
+      responseText = await callGemini(
+        systemPrompt, userPrompt, config.model, maxTokens, temperature,
+      );
+      break;
+    default:
+      throw new Error(`Unsupported LLM provider: ${config.provider}`);
   }
 
   return { [config.outputKey]: responseText };
