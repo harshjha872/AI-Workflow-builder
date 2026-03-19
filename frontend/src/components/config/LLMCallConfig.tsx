@@ -2,6 +2,31 @@ import { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { VariablePicker } from "../ui/VariablePicker";
 
+/** Add or remove models here — the dropdown updates automatically. */
+const PROVIDER_MODELS: Record<string, string[]> = {
+  openai: [
+    "gpt-4o",
+    "gpt-4o-mini",
+    "gpt-4-turbo",
+    "gpt-4",
+    "gpt-3.5-turbo",
+  ],
+  anthropic: [
+    "claude-sonnet-4-20250514",
+    "claude-3-5-sonnet-20241022",
+    "claude-3-5-haiku-20241022",
+    "claude-3-opus-20240229",
+  ],
+  gemini: [
+    "gemini-2.5-flash-preview-05-20",
+    "gemini-2.5-pro-preview-05-06",
+    "gemini-2.0-flash",
+    "gemini-2.0-flash-lite",
+    "gemini-1.5-pro",
+    "gemini-1.5-flash",
+  ],
+};
+
 interface LLMConfig {
   provider: string;
   model: string;
@@ -24,10 +49,21 @@ export function LLMCallConfig({ config, onChange }: Props) {
     defaultValues: config,
   });
 
+  const selectedProvider = watch("provider");
+  const models = PROVIDER_MODELS[selectedProvider] ?? [];
+
   useEffect(() => {
     const sub = watch((values) => onChange(values as LLMConfig));
     return () => sub.unsubscribe();
   }, [onChange, watch]);
+
+  // When provider changes, auto-select its first model
+  useEffect(() => {
+    const available = PROVIDER_MODELS[selectedProvider] ?? [];
+    if (available.length > 0 && !available.includes(config.model)) {
+      setValue("model", available[0]);
+    }
+  }, [selectedProvider]);
 
   useEffect(() => {
     function handleClickOutside(event: Event) {
@@ -63,10 +99,14 @@ export function LLMCallConfig({ config, onChange }: Props) {
       </label>
       <label className="block space-y-1">
         <span className="text-slate-600 dark:text-zinc-400">Model</span>
-        <input
+        <select
           {...register("model")}
           className="w-full rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-900 dark:text-zinc-100 px-2 py-1 text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
-        />
+        >
+          {models.map((m) => (
+            <option key={m} value={m}>{m}</option>
+          ))}
+        </select>
       </label>
       <label className="block space-y-1">
         <span className="text-slate-600 dark:text-zinc-400">
