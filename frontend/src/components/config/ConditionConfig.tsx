@@ -52,7 +52,7 @@ export function ConditionConfig({ config, onChange }: Props) {
   return (
     <div className="space-y-3 p-4 text-xs" ref={ref}>
       <h2 className="text-sm font-semibold text-slate-800 dark:text-zinc-200">
-        Condition
+        Condition (JavaScript)
       </h2>
       <label className="block relative space-y-1">
         <span className="text-slate-600 dark:text-zinc-400">Expression</span>
@@ -65,6 +65,7 @@ export function ConditionConfig({ config, onChange }: Props) {
               )
             }
             {...register("expression")}
+            placeholder="{{ context.score }} > 0.5"
             rows={3}
             className="w-full rounded-md border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-900 dark:text-zinc-100 px-2 py-1 font-mono text-xs focus:border-indigo-500 dark:focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors"
           />

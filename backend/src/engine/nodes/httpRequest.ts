@@ -13,7 +13,7 @@ export interface HttpRequestConfig {
   timeoutMs?: number;
 }
 
-export async function execute(config: HttpRequestConfig, context: any): Promise<Record<string, unknown>> {
+export async function execute(config: HttpRequestConfig, context: Record<string, any>): Promise<Record<string, unknown>> {
   
   const url = interpolate(config.url, context.data);
   const headers = config.headers
